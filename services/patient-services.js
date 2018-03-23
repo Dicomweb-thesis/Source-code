@@ -1,14 +1,14 @@
 var orthanc = require("orthanc-client");
-var q = require("q");
 const orthancUrl = 'http://localhost:8042';
 
-var source = new orthanc({
+var client = new orthanc({
     url: this.orthancUrl,
     auth: {
         username: '',
         password: ''
     }
 });
+
 
 var Patients = {
     /*
@@ -17,9 +17,9 @@ var Patients = {
     getList: async function () {
         let patientList = [];
         try {
-            let idList = await source.patients.getAll();
+            let idList = await client.patients.getAll();
             for (i in idList) {
-                var patient = await source.patients.get(idList[i]);
+                var patient = await client.patients.get(idList[i]);
                 patientList.push(patient);
             }
         }
@@ -33,10 +33,10 @@ var Patients = {
     * Get a patient details by PatientID
     * */
     getByPatientID: async function (patientID) {
-        let ids = await source.patients.getAll();
+        let ids = await client.patients.getAll();
         let patient;
         for (id of ids) {
-            let temp = await source.patients.get(id);
+            let temp = await client.patients.get(id);
             if (temp.MainDicomTags.PatientID.toString() === patientID.toString()) {
                 patient = temp;
             }

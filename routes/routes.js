@@ -1,8 +1,8 @@
 module.exports = function (express, app) {
     const router = express.Router();
     const jsonParser = require('body-parser').json();
-    const patientServices = require("./services/patient-services");
-    const studyServices = require("./services/study-services");
+    const Patients = require("../services/patient-services");
+    const Studies = require("../services/study-services");
 
 
 
@@ -17,7 +17,7 @@ module.exports = function (express, app) {
 
     // Return list of patients
     router.get("/patients", function (request, response) {
-        patientServices.getList().then(function (value) {
+        Patients.getList().then(function (value) {
             response.setHeader('Content-Type', 'application/json');
             response.status(200).json(value);
         }).catch(function (error) {
@@ -28,7 +28,7 @@ module.exports = function (express, app) {
     // Return list of studies according to patientID
     router.get("/patients/:id/studies", function (request, response) {
         let patientID = request.params.id;
-        studyServices.getListByPatientID(patientID).then(function (value) {
+        Studies.getListByPatientID(patientID).then(function (value) {
             response.setHeader('Content-Type', 'application/json');
             response.status(200).json(value);
         }).catch(function (error) {
