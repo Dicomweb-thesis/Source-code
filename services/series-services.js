@@ -1,8 +1,8 @@
 var orthanc = require("orthanc-client");
 var q = require("q");
 var url = 'http://localhost:8042';
-
-var source = new orthanc({
+var Studies=require('./study-services')
+var client = new orthanc({
     url: this.url,
     auth: {
         username: '',
@@ -11,7 +11,15 @@ var source = new orthanc({
 });
 
 var Series = {
-
+    /**
+    *	get series list given by Study ID
+    **/
+    getListByStudyID:async function (studyID) {
+        
+        
+            let series = await client.studies.get(id);
+        return series;
+    },
 
 
 };

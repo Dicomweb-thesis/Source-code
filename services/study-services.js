@@ -1,10 +1,10 @@
 var orthanc = require("orthanc-client");
 var q = require("q");
 var orthancUrl = 'http://localhost:8042';
-var patientServices = require('../services/patient-services');
+var Patient = require('../services/patient-services');
 
 
-var source = new orthanc({
+var client = new orthanc({
     url: this.orthancUrl,
     auth: {
         username: '',
@@ -17,15 +17,45 @@ var Studies = {
     * Get study list of the patient by PatientID
     * */
     getListByPatientID: async function (patientID) {
-        let patient = await patientServices.getByPatientID(patientID);
+        let patient = await Patient.getByPatientID(patientID);
         let ids = patient.Studies;
         let studies = [];
         for (id of ids) {
-            let study = await source.studies.get(id);
+            let study = await client.studies.get(id);
             studies.push(study);
         }
         return studies;
+    },
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    // duyệt tất cả các series của study sau đó duyệt instance của series mỗi instances
+      // là một buffer ảnh 
+      /*
+    * Get study list of the patient by PatientID
+    
+    getInstancebyID: async function (instanceID){
+        client.instances.getFile(instanceID)
+        .then(function (res) {
+            console.log('res');
+            return res;
+        })
+        .catch(function (err) {
+            
+        })
     }
+    * */
+
 
 
 };
