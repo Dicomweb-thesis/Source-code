@@ -12,7 +12,13 @@ var source = new orthanc({
 
 var Series = {
 
-
+    /**
+     *	get series list given by Study ID
+     **/
+    getListByStudyID:async function (studyID) {
+        let series = await client.studies.get(id);
+        return series;
+    },
 
 };
 

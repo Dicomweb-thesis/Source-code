@@ -1,9 +1,12 @@
 module.exports = function (express, app) {
     const router = express.Router();
-    const jsonParser = require('body-parser').json();
+    // const jsonParser = require('body-parser').json();
     const patientServices = require("./services/patient-services");
     const studyServices = require("./services/study-services");
+    const instanceServices = require("./services/instance-services");
+    const cornerstoneServices = require("./services/cornerstone-services");
 
+    var fetch = require("node-fetch");
 
 
     /*
@@ -36,6 +39,33 @@ module.exports = function (express, app) {
         })
     })
 
+    ////==================================================================
+    url = 'http://localhost:8042/wado?requestType=WADO&studyUID=1.3.12.2.1107.5.2.2.9076.20051014125256000&seriesUID=1.3.12.2.1107.5.2.2.9076.20051014125635000002&objectUID=1.3.12.2.1107.5.8.1.12345.200510141312220835508&contentType=application/dicom'
+
+    // router.get('/instances/getFile', function (request, response) {
+    //     fetch(url).then(function (value) {
+    //         response.setHeader('Content-Type','application/dicom');
+    //         console.log(value);
+    //         response.status(200).text(value);
+    //     }).catch(function (error) {
+    //         response.send(error);
+    //     })
+    //
+    //
+    // })
+
+    router.get('/instances/getFile', function (request, response) {
+        instanceServices.getFile().then(function (value) {
+            // response.setHeader('Content-Type','arraybuffer');
+            response.status(200).json(value);
+            console.log(value);
+        }).catch(function (error) {
+            response.send(error);
+        })
+
+    })
+
+///==============================================================================
 
     /*
     * Route for post request
@@ -56,5 +86,6 @@ module.exports = function (express, app) {
     app.use('/', router);
     app.use('/patients', router);
     app.use('/patients/:id/studies', router);
+    app.use('/instances/getFile', router);
 
 }
