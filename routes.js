@@ -4,7 +4,6 @@ module.exports = function (express, app) {
     const patientServices = require("./services/patient-services");
     const studyServices = require("./services/study-services");
     const instanceServices = require("./services/instance-services");
-    const cornerstoneServices = require("./services/cornerstone-services");
 
     var fetch = require("node-fetch");
 

@@ -1,11 +1,11 @@
 var orthanc = require("orthanc-client");
 var q = require("q");
-var orthancUrl = 'http://localhost:8042';
+var config = require("../config");
 var patientServices = require('../services/patient-services');
 
 
 var source = new orthanc({
-    url: this.orthancUrl,
+    url: config.orthancUrl,
     auth: {
         username: '',
         password: ''

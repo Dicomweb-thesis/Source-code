@@ -1,9 +1,9 @@
 var orthanc = require("orthanc-client");
 var q = require("q");
-const orthancUrl = 'http://localhost:8042';
+var config = require("../config");
 
 var source = new orthanc({
-    url: this.orthancUrl,
+    url: config.orthancUrl,
     auth: {
         username: '',
         password: ''
